@@ -1,0 +1,14 @@
+{
+	"Type": "AWS::S3::Bucket",
+	"Properties": {
+		"Tags": [
+                  { "Key": "Stack", "Value": { "Ref" : "AWS::StackName" } },
+                  { "Key": "Program", "Value": { "Fn::FindInMap": [ "Tag", { "Ref": "AWS::AccountId"}, "Program" ] } },
+                  { "Key": "Environment", "Value": { "Fn::FindInMap": [ "Tag", { "Ref": "AWS::AccountId"}, "Environment" ] } },
+                  { "Key": "Project", "Value": { "Fn::FindInMap": [ "Tag", { "Ref": "AWS::AccountId"}, "Project" ] } },
+                  { "Key": "Application", "Value": { "Fn::FindInMap": [ "Tag", { "Ref": "AWS::AccountId"}, "Application" ] } },
+                  { "Key": "Owner", "Value": { "Fn::FindInMap": [ "Tag", { "Ref": "AWS::AccountId"}, "Owner" ] } }
+      	],
+	    "BucketName": { "Fn::Join" : [ "-", [ {"Ref": "AWS::StackName"}, "app"] ] }
+	}
+}

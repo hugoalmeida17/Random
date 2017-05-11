@@ -1,0 +1,19 @@
+{
+  "Type": "AWS::Lambda::Function",
+  "Properties": {
+    "FunctionName" : { "Ref": "AWS::StackName" },
+    "Handler": "index.handler",
+    "Role": { "Fn::GetAtt" : [ "LambdaIAM", "Arn" ] },
+    "Code": {
+      "ZipFile": { "Fn::Join": ["", [
+        "var response = require('cfn-response');",
+        "exports.handler = function(event, context) {",
+        "  var input = parseInt(event.ResourceProperties.Input);",
+        "  var responseData = {Value: input * 5};",
+        "  response.send(event, context, response.SUCCESS, responseData);",
+        "};"
+]]}
+        },
+    "Runtime": "nodejs4.3"
+      }
+    }
